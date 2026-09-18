@@ -1,0 +1,2802 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="description" content="Мастерская Крафт — лазерная резка и гравировка на заказ. Фанера, акрил, МДФ и картон.">
+<title>Мастерская Крафт — лазерная резка</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+    --bg:#f7f4ee;
+    --surface:#fffdf9;
+    --surface-2:#eee8dc;
+    --text:#201b15;
+    --text-soft:#51483c;
+    --muted:#8b8172;
+    --line:#ded5c6;
+    --accent:#119bb8;
+    --accent-dark:#087c95;
+    --accent-soft:#e5f5f8;
+    --dark:#19140e;
+    --dark-soft:#282016;
+    --white:#fff;
+    --radius:18px;
+    --shadow:0 18px 50px rgba(30,24,15,.09);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --display:'Fraunces',Georgia,serif;
+    --body:'Manrope',Arial,sans-serif;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+    font-family:var(--body);
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+img{
+    display:block;
+    max-width:100%;
+    -webkit-user-drag:none;
+    user-drag:none;
+}
+
+button,input,textarea,select{
+    font:inherit;
+}
+
+button,a{
+    -webkit-tap-highlight-color:transparent;
+}
+
+a{
+    color:inherit;
+}
+
+::selection{
+    background:var(--accent);
+    color:white;
+}
+
+.container{
+    width:min(1180px,100%);
+    margin:auto;
+    padding:0 24px;
+}
+
+section{
+    width:min(1180px,100%);
+    margin:auto;
+    padding:100px 24px;
+}
+
+.eyebrow{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    color:var(--accent-dark);
+    font-size:12px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    margin-bottom:14px;
+}
+
+.dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 5px var(--accent-soft);
+}
+
+.section-head{
+    max-width:650px;
+    margin-bottom:48px;
+}
+
+.section-head.center{
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.section-head.center .eyebrow{
+    justify-content:center;
+}
+
+.title{
+    font-family:var(--display);
+    font-size:clamp(34px,4vw,52px);
+    line-height:1.08;
+    letter-spacing:-1px;
+    font-weight:500;
+    margin-bottom:15px;
+}
+
+.description{
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.75;
+}
+
+.btn{
+    min-height:50px;
+    padding:0 21px;
+    border-radius:12px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    border:1px solid transparent;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.3s var(--ease);
+}
+
+.btn-primary{
+    background:var(--dark);
+    color:white;
+}
+
+.btn-primary:hover{
+    background:var(--accent-dark);
+    transform:translateY(-3px);
+    box-shadow:0 12px 28px rgba(17,155,184,.2);
+}
+
+.btn-light{
+    background:var(--surface);
+    border-color:var(--line);
+}
+
+.btn-light:hover{
+    border-color:var(--accent);
+    color:var(--accent-dark);
+    transform:translateY(-3px);
+}
+
+.icon{
+    width:19px;
+    height:19px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.7;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(247,244,238,.88);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid transparent;
+    transition:.3s;
+}
+
+header.scrolled{
+    border-color:var(--line);
+    box-shadow:0 8px 30px rgba(30,24,15,.06);
+}
+
+.nav{
+    width:min(1180px,100%);
+    min-height:74px;
+    padding:0 24px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:25px;
+}
+
+/* ЛОГОТИП — КАРТИНКА + ТЕКСТ */
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    font-family:var(--display);
+    font-size:20px;
+    font-weight:600;
+    white-space:nowrap;
+}
+
+.logo em{
+    color:var(--accent-dark);
+    font-style:normal;
+}
+
+.logo-img{
+    height:40px;
+    width:auto;
+    display:block;
+    object-fit:contain;
+}
+
+.main-nav ul{
+    list-style:none;
+    display:flex;
+    gap:25px;
+}
+
+.main-nav a{
+    text-decoration:none;
+    color:var(--text-soft);
+    font-size:13px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.main-nav a:hover{
+    color:var(--accent-dark);
+}
+
+.nav-actions{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+.nav-btn{
+    padding:10px 15px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:800;
+    background:var(--surface);
+}
+
+.nav-btn.dark{
+    background:var(--dark);
+    color:white;
+    border-color:var(--dark);
+}
+
+.menu{
+    display:none;
+    width:42px;
+    height:42px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    border-radius:10px;
+    cursor:pointer;
+    align-items:center;
+    justify-content:center;
+}
+
+.hero{
+    min-height:650px;
+    display:grid;
+    grid-template-columns:1fr .95fr;
+    align-items:center;
+    gap:70px;
+    padding-top:70px;
+    padding-bottom:80px;
+}
+
+.hero h1{
+    font-family:var(--display);
+    font-size:clamp(48px,5.5vw,72px);
+    line-height:1.02;
+    font-weight:500;
+    letter-spacing:-2px;
+    margin-bottom:23px;
+}
+
+.hero h1 span{
+    color:var(--accent-dark);
+    font-style:italic;
+}
+
+.hero-text{
+    max-width:530px;
+    color:var(--text-soft);
+    font-size:16px;
+    line-height:1.75;
+    margin-bottom:30px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:42px;
+}
+
+.hero-stats{
+    display:flex;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.stat strong{
+    display:block;
+    font-family:var(--display);
+    font-size:27px;
+    font-weight:500;
+}
+
+.stat span{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+}
+
+.hero-image{
+    position:relative;
+}
+
+.hero-image img{
+    width:100%;
+    max-height:600px;
+    object-fit:cover;
+    border-radius:25px;
+    box-shadow:0 35px 80px rgba(30,24,15,.15);
+}
+
+.info-strip{
+    background:var(--dark);
+    color:white;
+    overflow:hidden;
+}
+
+.info-track{
+    width:max-content;
+    display:flex;
+    gap:55px;
+    padding:18px 0;
+    animation:marquee 28s linear infinite;
+    font-size:12px;
+    font-weight:700;
+}
+
+.info-track span{
+    color:#b8ad9c;
+}
+
+.info-track b{
+    color:white;
+}
+
+@keyframes marquee{
+    from{transform:translateX(0)}
+    to{transform:translateX(-50%)}
+}
+
+.about{
+    display:grid;
+    grid-template-columns:.95fr 1.05fr;
+    gap:65px;
+    align-items:center;
+}
+
+.about-image img{
+    width:100%;
+    border-radius:20px;
+    box-shadow:var(--shadow);
+}
+
+.about-text p{
+    color:var(--text-soft);
+    margin-bottom:16px;
+}
+
+.specs{
+    margin-top:28px;
+    border:1px solid var(--line);
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.spec{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 17px;
+    border-bottom:1px solid var(--line);
+    background:var(--surface);
+    font-size:13px;
+}
+
+.spec:last-child{
+    border-bottom:0;
+}
+
+.spec span:first-child{
+    color:var(--muted);
+}
+
+.spec span:last-child{
+    font-weight:800;
+}
+
+.services{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+}
+
+.card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    transition:.35s var(--ease);
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color:transparent;
+    box-shadow:var(--shadow);
+}
+
+.service{
+    padding:28px;
+}
+
+.service-icon{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--accent-soft);
+    color:var(--accent-dark);
+    margin-bottom:20px;
+}
+
+.service h3{
+    font-family:var(--display);
+    font-size:20px;
+    font-weight:500;
+    margin-bottom:8px;
+}
+
+.service p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.full-section{
+    width:100%;
+    max-width:none;
+    background:var(--surface-2);
+}
+
+.materials{
+    width:min(1180px,100%);
+    margin:auto;
+    padding:100px 24px;
+}
+
+.material-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.material{
+    padding:18px;
+}
+
+.material-swatch{
+    height:100px;
+    border-radius:12px;
+    margin-bottom:15px;
+    border:1px solid rgba(0,0,0,.08);
+}
+
+.material h4{
+    font-size:14px;
+    margin-bottom:4px;
+}
+
+.material p{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.top-section{
+    background:var(--bg);
+}
+
+.top-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.top-card{
+    overflow:hidden;
+}
+
+.top-photo{
+    aspect-ratio:4/3;
+    overflow:hidden;
+    background:var(--surface-2);
+}
+
+.top-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.5s var(--ease);
+}
+
+.top-card:hover .top-photo img{
+    transform:scale(1.04);
+}
+
+.top-content{
+    padding:21px;
+}
+
+.rank{
+    display:inline-flex;
+    padding:5px 9px;
+    border-radius:7px;
+    background:var(--accent-soft);
+    color:var(--accent-dark);
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.top-content h3{
+    font-size:17px;
+    margin-bottom:7px;
+}
+
+.top-content p{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.catalog-section{
+    width:100%;
+    max-width:none;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+}
+
+.catalog{
+    width:min(1180px,100%);
+    margin:auto;
+    padding:100px 24px;
+}
+
+.filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:28px;
+}
+
+.filter{
+    border:1px solid var(--line);
+    background:var(--surface);
+    padding:9px 15px;
+    border-radius:50px;
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.25s var(--ease);
+}
+
+.filter:hover{
+    border-color:var(--accent);
+    color:var(--accent-dark);
+}
+
+.filter.active{
+    background:var(--dark);
+    color:white;
+    border-color:var(--dark);
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.product{
+    overflow:hidden;
+}
+
+.product-photo{
+    aspect-ratio:4/3;
+    overflow:hidden;
+    background:var(--surface-2);
+}
+
+.product-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.5s var(--ease);
+}
+
+.product:hover .product-photo img{
+    transform:scale(1.035);
+}
+
+.product-body{
+    padding:20px;
+}
+
+.product h3{
+    font-size:16px;
+    margin-bottom:7px;
+}
+
+.product p{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.65;
+}
+
+.product-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-top:18px;
+}
+
+.price{
+    color:var(--accent-dark);
+    background:var(--accent-soft);
+    padding:6px 9px;
+    border-radius:7px;
+    font-size:12px;
+    font-weight:800;
+}
+
+.order{
+    border:0;
+    border-radius:8px;
+    background:var(--dark);
+    color:white;
+    padding:9px 13px;
+    font-size:11px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.order:hover{
+    background:var(--accent-dark);
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:13px;
+    margin-top:18px;
+}
+
+.gallery button{
+    border:0;
+    padding:0;
+    background:none;
+    overflow:hidden;
+    border-radius:13px;
+    cursor:zoom-in;
+}
+
+.gallery img{
+    width:100%;
+    aspect-ratio:1;
+    object-fit:cover;
+    transition:.4s;
+}
+
+.gallery button:hover img{
+    transform:scale(1.05);
+}
+
+.process-section{
+    width:100%;
+    max-width:none;
+    background:var(--surface-2);
+}
+
+.process{
+    width:min(1180px,100%);
+    margin:auto;
+    padding:100px 24px;
+}
+
+.process-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.step{
+    text-align:center;
+}
+
+.step-number{
+    width:54px;
+    height:54px;
+    margin:0 auto 18px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid var(--line);
+    background:var(--bg);
+    font-size:12px;
+    font-weight:800;
+}
+
+.step h4{
+    font-family:var(--display);
+    font-size:19px;
+    font-weight:500;
+    margin-bottom:7px;
+}
+
+.step p{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.calculator{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:55px;
+    align-items:start;
+}
+
+.calc-card{
+    padding:28px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-bottom:15px;
+}
+
+.field label{
+    font-size:11px;
+    font-weight:800;
+    color:var(--text-soft);
+}
+
+.field input,
+.field select,
+.field textarea{
+    width:100%;
+    border:1px solid var(--line);
+    background:var(--bg);
+    border-radius:10px;
+    padding:11px 13px;
+    outline:none;
+    color:var(--text);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+    border-color:var(--accent);
+}
+
+.check{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:12px;
+    color:var(--text-soft);
+    margin:8px 0 20px;
+}
+
+.result{
+    background:var(--dark);
+    color:white;
+    border-radius:13px;
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.result small{
+    display:block;
+    color:#a99d8b;
+    font-size:10px;
+}
+
+.result strong{
+    display:block;
+    font-family:var(--display);
+    font-size:26px;
+    font-weight:500;
+}
+
+.review-wrap{
+    max-width:720px;
+    margin:auto;
+}
+
+.review-card{
+    padding:40px;
+    text-align:center;
+}
+
+.review-text{
+    font-family:var(--display);
+    font-size:22px;
+    line-height:1.5;
+    margin-bottom:22px;
+}
+
+.review-name{
+    font-weight:800;
+    font-size:13px;
+}
+
+.review-role{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.review-controls{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-top:18px;
+}
+
+.review-controls button{
+    width:38px;
+    height:38px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    background:var(--surface);
+    cursor:pointer;
+    font-size:16px;
+}
+
+.faq{
+    max-width:760px;
+    margin:auto;
+}
+
+.faq-item{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+
+.faq-question{
+    width:100%;
+    border:0;
+    background:none;
+    padding:18px 20px;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    text-align:left;
+    font-size:13px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.faq-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.faq-answer p{
+    padding:0 20px 18px;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.cta{
+    width:min(1132px,100%);
+    margin:auto;
+    padding:75px 25px;
+    border-radius:25px;
+    background:var(--dark);
+    color:white;
+    text-align:center;
+}
+
+.cta h2{
+    font-family:var(--display);
+    font-size:40px;
+    font-weight:500;
+    margin-bottom:10px;
+}
+
+.cta p{
+    max-width:500px;
+    margin:0 auto 25px;
+    color:#aaa091;
+    font-size:13px;
+}
+
+.cta .btn-primary{
+    background:white;
+    color:var(--dark);
+}
+
+.cta .btn-primary:hover{
+    background:var(--accent);
+    color:white;
+}
+
+.contact{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:55px;
+}
+
+.contact-info{
+    padding:25px;
+}
+
+.contact-row{
+    display:flex;
+    gap:13px;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+}
+
+.contact-row:last-child{
+    border:0;
+}
+
+.contact-row .icon{
+    color:var(--accent-dark);
+}
+
+.contact-row strong{
+    display:block;
+    font-size:12px;
+}
+
+.contact-row span{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.contact-form{
+    padding:28px;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.form-field{
+    margin-bottom:15px;
+}
+
+.form-field label{
+    display:block;
+    margin-bottom:6px;
+    font-size:11px;
+    font-weight:800;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select{
+    width:100%;
+    border:1px solid var(--line);
+    background:var(--bg);
+    border-radius:10px;
+    padding:12px 13px;
+    outline:0;
+}
+
+.form-field textarea{
+    resize:vertical;
+}
+
+.file{
+    position:relative;
+    border:1px dashed var(--line);
+    border-radius:12px;
+    padding:18px;
+    text-align:center;
+    color:var(--muted);
+    font-size:11px;
+    margin-bottom:15px;
+}
+
+.file input{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    cursor:pointer;
+}
+
+.success{
+    display:none;
+    padding:14px;
+    margin-top:12px;
+    border-radius:10px;
+    background:var(--accent-soft);
+    color:var(--accent-dark);
+    font-size:12px;
+    font-weight:800;
+}
+
+.success.show{
+    display:block;
+}
+
+footer{
+    background:var(--dark);
+    color:#a99e8d;
+}
+
+.footer{
+    width:min(1180px,100%);
+    margin:auto;
+    padding:65px 24px 30px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr;
+    gap:50px;
+    padding-bottom:40px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.footer .logo{
+    color:white;
+    margin-bottom:16px;
+}
+
+.footer .logo-img{
+    height:44px;
+    width:auto;
+}
+
+.footer p{
+    max-width:300px;
+    font-size:12px;
+}
+
+.footer h4{
+    color:white;
+    font-size:12px;
+    margin-bottom:15px;
+}
+
+.footer ul{
+    list-style:none;
+}
+
+.footer li{
+    margin-bottom:9px;
+}
+
+.footer a{
+    color:#a99e8d;
+    text-decoration:none;
+    font-size:12px;
+}
+
+.footer a:hover{
+    color:var(--accent);
+}
+
+.footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+    padding-top:25px;
+    font-size:11px;
+}
+
+.lightbox{
+    position:fixed;
+    inset:0;
+    z-index:2000;
+    background:rgba(10,8,5,.9);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+}
+
+.lightbox.open{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.lightbox img{
+    max-width:min(900px,95vw);
+    max-height:85vh;
+    border-radius:15px;
+}
+
+.lightbox-close{
+    position:absolute;
+    right:20px;
+    top:20px;
+    width:43px;
+    height:43px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.1);
+    color:white;
+    cursor:pointer;
+}
+
+.reveal{
+    opacity:0;
+    transform:translateY(20px);
+    transition:.7s var(--ease);
+}
+
+.reveal.visible{
+    opacity:1;
+    transform:none;
+}
+
+.to-top{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:var(--surface);
+    box-shadow:var(--shadow);
+    cursor:pointer;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+    z-index:900;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.to-top.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.mobile-panel{
+    display:none;
+}
+
+.mobile-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(20,15,8,.4);
+    z-index:1100;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+}
+
+.mobile-backdrop.open{
+    opacity:1;
+    pointer-events:auto;
+}
+
+#devtools-block{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    background:var(--bg);
+    color:var(--text);
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px;
+    font-family:var(--body);
+}
+#devtools-block.show{
+    display:flex;
+}
+#devtools-block h2{
+    font-family:var(--display);
+    font-size:28px;
+    margin-bottom:10px;
+}
+#devtools-block p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+@media(max-width:1000px){
+    .main-nav{display:none}
+    .nav-actions .nav-btn{display:none}
+    .menu{display:flex}
+
+    .hero{
+        grid-template-columns:1fr;
+        gap:45px;
+        padding-top:50px;
+        padding-bottom:60px;
+        min-height:auto;
+    }
+
+    .hero h1{
+        font-size:clamp(38px,6vw,54px);
+    }
+
+    .about,
+    .calculator,
+    .contact{
+        grid-template-columns:1fr;
+        gap:40px;
+    }
+
+    .services{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .products,
+    .top-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .material-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .process-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:35px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .mobile-panel{
+        position:fixed;
+        display:flex;
+        flex-direction:column;
+        top:74px;
+        right:0;
+        width:min(350px,88vw);
+        height:calc(100vh - 74px);
+        padding:25px;
+        background:var(--surface);
+        border-left:1px solid var(--line);
+        transform:translateX(100%);
+        transition:.35s var(--ease);
+        z-index:1200;
+        overflow-y:auto;
+    }
+
+    .mobile-panel.open{
+        transform:none;
+    }
+
+    .mobile-panel a{
+        padding:15px 4px;
+        border-bottom:1px solid var(--line);
+        text-decoration:none;
+        font-weight:800;
+        font-size:15px;
+    }
+}
+
+@media(max-width:650px){
+    section{
+        padding:55px 18px;
+    }
+
+    .materials,
+    .catalog,
+    .process{
+        padding:55px 18px;
+    }
+
+    .container,
+    .nav{
+        padding-left:18px;
+        padding-right:18px;
+    }
+
+    .nav{
+        min-height:64px;
+    }
+
+    .logo{
+        font-size:16px;
+        gap:8px;
+    }
+
+    .logo-img{
+        height:32px;
+    }
+
+    .hero{
+        padding-top:30px;
+        padding-bottom:40px;
+        grid-template-columns:1fr;
+        gap:30px;
+        text-align:left;
+    }
+
+    .hero h1{
+        font-size:34px;
+        letter-spacing:-1px;
+        line-height:1.05;
+    }
+
+    .hero-text{
+        font-size:14px;
+        margin-bottom:24px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+        margin-bottom:30px;
+    }
+
+    .hero-buttons .btn{
+        width:100%;
+        min-height:48px;
+    }
+
+    .hero-stats{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:16px 12px;
+        padding-top:20px;
+        border-top:1px solid var(--line);
+    }
+
+    .stat strong{
+        font-size:22px;
+    }
+
+    .stat span{
+        font-size:10px;
+    }
+
+    .hero-image img{
+        border-radius:18px;
+        max-height:340px;
+        box-shadow:0 20px 50px rgba(30,24,15,.12);
+    }
+
+    .info-track{
+        gap:32px;
+        font-size:11px;
+        padding:14px 0;
+        animation-duration:22s;
+    }
+
+    .about{
+        gap:30px;
+    }
+
+    .about-image img{
+        border-radius:16px;
+    }
+
+    .services,
+    .products,
+    .top-grid,
+    .material-grid,
+    .process-grid{
+        grid-template-columns:1fr;
+    }
+
+    .service{
+        padding:22px;
+    }
+
+    .service-icon{
+        width:40px;
+        height:40px;
+        margin-bottom:14px;
+    }
+
+    .service h3{
+        font-size:17px;
+    }
+
+    .title{
+        font-size:28px;
+        letter-spacing:-.5px;
+    }
+
+    .description{
+        font-size:13.5px;
+    }
+
+    .gallery{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+    }
+
+    .step{
+        text-align:left;
+        padding:14px 0 14px 66px;
+        position:relative;
+        border-bottom:1px solid var(--line);
+    }
+
+    .step:last-child{
+        border-bottom:0;
+    }
+
+    .step-number{
+        position:absolute;
+        left:0;
+        top:14px;
+        margin:0;
+        width:46px;
+        height:46px;
+    }
+
+    .form-row,
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .result{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .result .btn{
+        width:100%;
+    }
+
+    .result strong{
+        font-size:22px;
+    }
+
+    .contact-info,
+    .contact-form{
+        padding:20px;
+    }
+
+    .cta{
+        padding:45px 20px;
+        border-radius:20px;
+    }
+
+    .cta h2{
+        font-size:28px;
+    }
+
+    .review-card{
+        padding:26px 18px;
+    }
+
+    .review-text{
+        font-size:17px;
+    }
+
+    .footer{
+        padding:45px 18px 25px;
+    }
+
+    .footer .logo{
+        font-size:16px;
+    }
+
+    .footer .logo-img{
+        height:36px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+        gap:28px;
+        padding-bottom:28px;
+    }
+
+    .footer-bottom{
+        flex-direction:column;
+        align-items:flex-start;
+        text-align:left;
+    }
+
+    .mobile-panel{
+        top:64px;
+        height:calc(100vh - 64px);
+        padding:20px;
+        width:min(100%,320px);
+    }
+
+    .mobile-panel a{
+        font-size:14px;
+        padding:14px 4px;
+    }
+
+    .to-top{
+        right:14px;
+        bottom:14px;
+        width:40px;
+        height:40px;
+    }
+
+    .filters{
+        flex-wrap:nowrap;
+        overflow-x:auto;
+        padding-bottom:6px;
+        margin-bottom:22px;
+        scrollbar-width:none;
+    }
+
+    .filters::-webkit-scrollbar{
+        display:none;
+    }
+
+    .filter{
+        flex:none;
+    }
+}
+
+@media print{
+    body{
+        display:none !important;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    *,
+    *::before,
+    *::after{
+        animation:none!important;
+        transition:none!important;
+    }
+
+    html{
+        scroll-behavior:auto;
+    }
+
+    .reveal{
+        opacity:1;
+        transform:none;
+    }
+}
+</style>
+
+</head>
+
+<body oncontextmenu="return false">
+
+<div id="devtools-block">
+    <div>
+        <h2>Закройте инструменты разработчика</h2>
+        <p>Для продолжения работы с сайтом закройте DevTools.</p>
+    </div>
+</div>
+
+<svg style="display:none">
+<symbol id="laser" viewBox="0 0 24 24"><path d="M4 15l6-9 4 3 6-8M3 21l4-4M9 21l3-6M15 21l2-4"/></symbol>
+<symbol id="engrave" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1"/><circle cx="10" cy="8" r="1"/><circle cx="10" cy="16" r="1"/><circle cx="14" cy="6" r="1"/><circle cx="14" cy="12" r="1"/><circle cx="14" cy="18" r="1"/><circle cx="18" cy="10" r="1"/></symbol>
+<symbol id="layout" viewBox="0 0 24 24"><path d="M3 4h18v16H3zM3 9h18M9 9v11"/></symbol>
+<symbol id="gift" viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="11" rx="1"/><path d="M3 13h18M12 9v11M12 9C9 9 8 6 9.5 4.5S13 4 12 9M12 9c3 0 4-3 2.5-4.5S11 4 12 9"/></symbol>
+<symbol id="sign" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="10" rx="1"/><path d="M9 20l3-6 3 6"/></symbol>
+<symbol id="stack" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 18l9 5 9-5"/></symbol>
+<symbol id="menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+<symbol id="phone" viewBox="0 0 24 24"><path d="M6 4h3l2 5-2.5 1.5a12 12 0 006 6L16 14l5 2v3a2 2 0 01-2 2C10.5 21 3 13.5 3 5a2 2 0 012-1z"/></symbol>
+<symbol id="mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 6l9 7 9-7"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+<symbol id="send" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></symbol>
+</svg>
+
+<header id="header">
+    <div class="nav">
+
+        <a href="#top" class="logo">
+            <img src="images/foto.jpg" alt="Мастерская Крафт" class="logo-img">
+            Мастерская <em>Крафт</em>
+        </a>
+
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#services">Услуги</a></li>
+                <li><a href="#materials">Материалы</a></li>
+                <li><a href="#topWorks">Топ работ</a></li>
+                <li><a href="#catalog">Каталог</a></li>
+                <li><a href="#process">Процесс</a></li>
+                <li><a href="#calculator">Расчёт</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+
+        <div class="nav-actions">
+            <a href="#catalog" class="nav-btn">Каталог</a>
+            <a href="#contact" class="nav-btn dark">Связаться</a>
+
+            <button class="menu" id="menuButton" aria-label="Меню">
+                <svg class="icon"><use href="#menu"/></svg>
+            </button>
+        </div>
+
+    </div>
+</header>
+
+<div class="mobile-backdrop" id="mobileBackdrop"></div>
+
+<nav class="mobile-panel" id="mobilePanel">
+    <a href="#services">Услуги</a>
+    <a href="#materials">Материалы</a>
+    <a href="#topWorks">Топ работ</a>
+    <a href="#catalog">Каталог</a>
+    <a href="#process">Процесс</a>
+    <a href="#calculator">Расчёт</a>
+    <a href="#faq">Вопросы</a>
+    <a href="#contact">Контакты</a>
+</nav>
+
+<main id="top">
+
+<section class="hero">
+
+    <div class="reveal">
+
+        <div class="eyebrow">
+            <span class="dot"></span>
+            лазерная резка и гравировка
+        </div>
+
+        <h1>
+            Вырезаем то, что
+            <span>вы придумали</span>
+        </h1>
+
+        <p class="hero-text">
+            Фанера, акрил, МДФ и картон. Изготавливаем декор,
+            таблички, подарки и корпоративные изделия
+            по готовому макету или с нуля.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#contact" class="btn btn-primary">
+                Оставить заявку
+                <svg class="icon"><use href="#arrow"/></svg>
+            </a>
+
+            <a href="#calculator" class="btn btn-light">
+                Рассчитать стоимость
+            </a>
+        </div>
+
+        <div class="hero-stats">
+            <div class="stat">
+                <strong data-count="600">0</strong>
+                <span>изделий изготовлено</span>
+            </div>
+
+            <div class="stat">
+                <strong data-count="7">0</strong>
+                <span>лет в деле</span>
+            </div>
+
+            <div class="stat">
+                <strong>±0,1 мм</strong>
+                <span>точность реза</span>
+            </div>
+
+            <div class="stat">
+                <strong>2–5</strong>
+                <span>дней изготовление</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="hero-image reveal">
+        <img src="images/foto.jpg" alt="Мастерская Крафт">
+    </div>
+
+</section>
+
+<div class="info-strip">
+    <div class="info-track">
+        <span><b>Фанера</b> 3–10 мм</span>
+        <span><b>МДФ</b> 3–6 мм</span>
+        <span><b>Акрил</b> 3–5 мм</span>
+        <span><b>Картон</b> 1,5–2,5 мм</span>
+        <span><b>Шпон</b> 0,6–1 мм</span>
+        <span><b>Поле реза</b> 900×600 мм</span>
+        <span><b>Точность</b> ±0,1 мм</span>
+
+        <span><b>Фанера</b> 3–10 мм</span>
+        <span><b>МДФ</b> 3–6 мм</span>
+        <span><b>Акрил</b> 3–5 мм</span>
+        <span><b>Картон</b> 1,5–2,5 мм</span>
+        <span><b>Шпон</b> 0,6–1 мм</span>
+    </div>
+</div>
+
+<section class="about">
+
+    <div class="about-image reveal">
+        <img src="images/foto.jpg" alt="Мастерская Крафт">
+    </div>
+
+    <div class="about-text reveal">
+
+        <div class="eyebrow">
+            <span class="dot"></span>
+            о мастерской
+        </div>
+
+        <h2 class="title">
+            От идеи до готового изделия
+        </h2>
+
+        <p>
+            Мы занимаемся лазерной резкой и гравировкой.
+            Помогаем подготовить макет, подобрать материал
+            и изготовить изделие под конкретную задачу.
+        </p>
+
+        <p>
+            Работаем как с единичными заказами,
+            так и с небольшими сериями.
+        </p>
+
+        <div class="specs">
+            <div class="spec">
+                <span>Рабочее поле</span>
+                <span>900 × 600 мм</span>
+            </div>
+
+            <div class="spec">
+                <span>Мощность лазера</span>
+                <span>100 Вт</span>
+            </div>
+
+            <div class="spec">
+                <span>Точность</span>
+                <span>±0,1 мм</span>
+            </div>
+
+            <div class="spec">
+                <span>Срок изготовления</span>
+                <span>2–5 дней</span>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<section id="services">
+
+    <div class="section-head center reveal">
+        <div class="eyebrow">
+            <span class="dot"></span>
+            возможности
+        </div>
+
+        <h2 class="title">Что мы делаем</h2>
+
+        <p class="description">
+            Полный цикл работы — от подготовки макета
+            до изготовления готового изделия.
+        </p>
+    </div>
+
+    <div class="services" id="servicesGrid"></div>
+
+</section>
+
+<div class="full-section" id="materials">
+
+    <div class="materials">
+
+        <div class="section-head center reveal">
+            <div class="eyebrow">
+                <span class="dot"></span>
+                материалы
+            </div>
+
+            <h2 class="title">Из чего режем</h2>
+
+            <p class="description">
+                Выбираем материал исходя из назначения,
+                размера и внешнего вида изделия.
+            </p>
+        </div>
+
+        <div class="material-grid" id="materialGrid"></div>
+
+    </div>
+
+</div>
+
+<section class="top-section" id="topWorks">
+
+    <div class="section-head center reveal">
+
+        <div class="eyebrow">
+            <span class="dot"></span>
+            выбор мастерской
+        </div>
+
+        <h2 class="title">Топ работ</h2>
+
+        <p class="description">
+            Несколько изделий, которые хорошо показывают,
+            что можно сделать с помощью лазерной резки.
+        </p>
+
+    </div>
+
+    <div class="top-grid" id="topGrid"></div>
+
+</section>
+
+<div class="catalog-section" id="catalog">
+
+    <div class="catalog">
+
+        <div class="section-head reveal">
+
+            <div class="eyebrow">
+                <span class="dot"></span>
+                примеры работ
+            </div>
+
+            <h2 class="title">Каталог</h2>
+
+            <p class="description">
+                Выберите категорию или посмотрите все работы.
+            </p>
+
+        </div>
+
+        <div class="filters" id="filters"></div>
+
+        <div class="products" id="products"></div>
+
+        <div class="gallery" id="gallery"></div>
+
+    </div>
+
+</div>
+
+<div class="process-section" id="process">
+
+    <div class="process">
+
+        <div class="section-head center reveal">
+
+            <div class="eyebrow">
+                <span class="dot"></span>
+                как всё происходит
+            </div>
+
+            <h2 class="title">Четыре шага</h2>
+
+        </div>
+
+        <div class="process-grid">
+
+            <div class="step reveal">
+                <div class="step-number">01</div>
+                <h4>Заявка</h4>
+                <p>Рассказываете о задаче и присылаете макет, если он есть.</p>
+            </div>
+
+            <div class="step reveal">
+                <div class="step-number">02</div>
+                <h4>Расчёт</h4>
+                <p>Подбираем материал, считаем стоимость и сроки.</p>
+            </div>
+
+            <div class="step reveal">
+                <div class="step-number">03</div>
+                <h4>Производство</h4>
+                <p>Готовим материал, режем, гравируем и собираем изделие.</p>
+            </div>
+
+            <div class="step reveal">
+                <div class="step-number">04</div>
+                <h4>Получение</h4>
+                <p>Упаковываем готовую работу и передаём удобным способом.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<section id="calculator" class="calculator">
+
+    <div class="reveal">
+
+        <div class="eyebrow">
+            <span class="dot"></span>
+            быстрый расчёт
+        </div>
+
+        <h2 class="title">
+            Прикиньте стоимость заказа
+        </h2>
+
+        <p class="description">
+            Калькулятор показывает ориентировочную цену.
+            Точная стоимость зависит от макета,
+            материала и сложности обработки.
+        </p>
+
+    </div>
+
+    <div class="card calc-card reveal">
+
+        <div class="form-grid">
+
+            <div class="field">
+                <label>Материал</label>
+
+                <select id="calcMaterial">
+                    <option value="3.2">Фанера 3 мм</option>
+                    <option value="4.5" selected>Фанера 6 мм</option>
+                    <option value="6.8">МДФ 6 мм</option>
+                    <option value="8.5">Акрил 3 мм</option>
+                    <option value="2.1">Картон 2 мм</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>Количество</label>
+                <input id="calcQty" type="number" min="1" value="1">
+            </div>
+
+            <div class="field">
+                <label>Ширина, см</label>
+                <input id="calcW" type="number" min="1" value="15">
+            </div>
+
+            <div class="field">
+                <label>Высота, см</label>
+                <input id="calcH" type="number" min="1" value="15">
+            </div>
+
+        </div>
+
+        <label class="check">
+            <input type="checkbox" id="calcEngrave" checked>
+            Добавить гравировку
+        </label>
+
+        <div class="result">
+
+            <div>
+                <small>ориентировочная стоимость</small>
+                <strong id="calcResult">— ₽</strong>
+            </div>
+
+            <a href="#contact" class="btn btn-light" id="calcOrder">
+                В заявку
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section>
+
+    <div class="section-head center reveal">
+
+        <div class="eyebrow">
+            <span class="dot"></span>
+            отзывы
+        </div>
+
+        <h2 class="title">Что говорят клиенты</h2>
+
+    </div>
+
+    <div class="review-wrap reveal">
+
+        <div class="card review-card">
+
+            <p class="review-text" id="reviewText"></p>
+
+            <div class="review-name" id="reviewName"></div>
+            <div class="review-role" id="reviewRole"></div>
+
+        </div>
+
+        <div class="review-controls">
+            <button id="prevReview">←</button>
+            <button id="nextReview">→</button>
+        </div>
+
+    </div>
+
+</section>
+
+<section id="faq">
+
+    <div class="section-head center reveal">
+
+        <div class="eyebrow">
+            <span class="dot"></span>
+            вопросы
+        </div>
+
+        <h2 class="title">Частые вопросы</h2>
+
+    </div>
+
+    <div class="faq" id="faqList"></div>
+
+</section>
+
+<div class="container">
+
+    <div class="cta reveal">
+
+        <h2>Есть идея?</h2>
+
+        <p>
+            Расскажите, что хотите изготовить.
+            Подберём материал, обсудим детали
+            и рассчитаем стоимость.
+        </p>
+
+        <a href="#contact" class="btn btn-primary">
+            Оставить заявку
+            <svg class="icon"><use href="#arrow"/></svg>
+        </a>
+
+    </div>
+
+</div>
+
+<section id="contact" class="contact">
+
+    <div class="reveal">
+
+        <div class="eyebrow">
+            <span class="dot"></span>
+            связь
+        </div>
+
+        <h2 class="title">Оставьте заявку</h2>
+
+        <p class="description">
+            Опишите задачу — свяжемся с вами
+            и обсудим детали заказа.
+        </p>
+
+        <div class="card contact-info">
+
+            <div class="contact-row">
+                <svg class="icon"><use href="#phone"/></svg>
+                <div>
+                    <strong>Телефон</strong>
+                    <span>+7 904 889 98 73</span>
+                </div>
+            </div>
+
+            <div class="contact-row">
+                <svg class="icon"><use href="#mail"/></svg>
+                <div>
+                    <strong>Почта</strong>
+                    <span>rjzmar@mail.ru</span>
+                </div>
+            </div>
+
+            <div class="contact-row">
+                <svg class="icon"><use href="#clock"/></svg>
+                <div>
+                    <strong>Работаем</strong>
+                    <span>Пн–Пт 10:00–19:00</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <form class="card contact-form" id="contactForm">
+
+        <div class="form-row">
+
+            <div class="form-field">
+                <label>Имя</label>
+                <input name="name" required placeholder="Ваше имя">
+            </div>
+
+            <div class="form-field">
+                <label>Телефон или e-mail</label>
+                <input name="contact" required placeholder="+7 900 000-00-00">
+            </div>
+
+        </div>
+
+        <div class="form-field">
+            <label>Тип изделия</label>
+
+            <select name="type">
+                <option>Декор / сувенир</option>
+                <option>Табличка</option>
+                <option>Подарок</option>
+                <option>Корпоративный заказ</option>
+                <option>Другое</option>
+            </select>
+        </div>
+
+        <div class="form-field">
+            <label>Описание задачи</label>
+
+            <textarea
+                name="message"
+                rows="5"
+                required
+                placeholder="Размер, материал, количество, особенности..."
+            ></textarea>
+        </div>
+
+        <div class="file">
+            Прикрепить макет
+            <input type="file" accept=".ai,.svg,.dxf,.pdf,.cdr">
+        </div>
+
+        <button class="btn btn-primary" type="submit" style="width:100%">
+            <svg class="icon"><use href="#send"/></svg>
+            Отправить заявку
+        </button>
+
+        <div class="success" id="success">
+            ✅ Заявка отправлена! Мы свяжемся с вами в ближайшее время.
+        </div>
+
+    </form>
+
+</section>
+
+</main>
+
+<footer>
+
+    <div class="footer">
+
+        <div class="footer-grid">
+
+            <div>
+                <a href="#top" class="logo">
+                    <img src="images/foto.jpg" alt="Мастерская Крафт" class="logo-img">
+                    Мастерская <em>Крафт</em>
+                </a>
+
+                <p>
+                    Лазерная резка и гравировка
+                    по дереву, акрилу, МДФ и картону.
+                </p>
+            </div>
+
+            <div>
+                <h4>Навигация</h4>
+
+                <ul>
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#materials">Материалы</a></li>
+                    <li><a href="#catalog">Каталог</a></li>
+                    <li><a href="#process">Процесс</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Контакты</h4>
+
+                <ul>
+                    <li><a href="tel:+79048899873">+7 904 889 98 73</a></li>
+                    <li><a href="mailto:rjzmar@mail.ru">rjzmar@mail.ru</a></li>
+                    <li><a href="#contact">Оставить заявку</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <span>© <span id="year"></span> Мастерская Крафт</span>
+            <span>Лазерная резка и гравировка</span>
+        </div>
+
+    </div>
+
+</footer>
+
+<button class="to-top" id="toTop" aria-label="Наверх">
+    <svg class="icon"><use href="#up"/></svg>
+</button>
+
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">
+        <svg class="icon"><use href="#close"/></svg>
+    </button>
+    <img id="lightboxImage" src="" alt="">
+</div>
+
+<script>
+"use strict";
+
+/* =========================
+   ЗАЩИТА
+========================= */
+
+document.addEventListener("contextmenu", function(e){
+    e.preventDefault();
+    return false;
+});
+
+document.addEventListener("dragstart", function(e){
+    if(e.target.tagName === "IMG") e.preventDefault();
+});
+
+document.addEventListener("keydown", function(e){
+    var k = (e.key || "").toUpperCase();
+
+    if(e.key === "F12" || e.keyCode === 123){
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    if(e.ctrlKey && e.shiftKey && ["I","J","C","K"].indexOf(k) !== -1){
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    if(e.ctrlKey && k === "U"){
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    if(e.ctrlKey && k === "S"){
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    if(e.metaKey && e.altKey && ["I","J","C"].indexOf(k) !== -1){
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    if(e.metaKey && k === "U"){
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    if(e.ctrlKey && ["C","A"].indexOf(k) !== -1){
+        var t = (e.target.tagName || "").toUpperCase();
+        if(t !== "INPUT" && t !== "TEXTAREA"){
+            e.preventDefault();
+            return false;
+        }
+    }
+}, true);
+
+document.addEventListener("copy", function(e){
+    var t = (e.target.tagName || "").toUpperCase();
+    if(t !== "INPUT" && t !== "TEXTAREA"){
+        e.preventDefault();
+    }
+});
+
+(function(){
+    var block = document.getElementById("devtools-block");
+    var trap = new Image();
+    var triggered = false;
+
+    Object.defineProperty(trap, "id", {
+        get: function(){
+            triggered = true;
+            if(block) block.classList.add("show");
+        }
+    });
+
+    setInterval(function(){
+        triggered = false;
+        console.log(trap);
+        console.clear();
+        if(!triggered && block && block.classList.contains("show")){
+            block.classList.remove("show");
+        }
+    }, 1000);
+})();
+
+console.log("%c⛔ СТОП!", "color:#e63946;font-size:32px;font-weight:bold;");
+console.log("%cЭтот сайт защищён. Копирование кода запрещено.", "color:#119bb8;font-size:14px;");
+
+/* =========================
+   DATA
+========================= */
+
+const SERVICES = [
+    { icon:"laser", title:"Лазерная резка", text:"Точный раскрой фанеры, акрила, МДФ и картона по вашему макету." },
+    { icon:"engrave", title:"Гравировка", text:"Надписи, логотипы, рисунки и персональные изображения." },
+    { icon:"layout", title:"Разработка макета", text:"Подготовим макет по вашему описанию или доработаем готовый." },
+    { icon:"gift", title:"Декор и подарки", text:"Панно, брелоки, сувениры, наборы и интерьерные изделия." },
+    { icon:"sign", title:"Таблички", text:"Адресные таблички, указатели, меню и интерьерные вывески." },
+    { icon:"stack", title:"Серии и партии", text:"Изготовление нескольких десятков или сотен одинаковых изделий." }
+];
+
+const MATERIALS = [
+    { name:"Фанера", spec:"3 / 4 / 6 / 10 мм", bg:"linear-gradient(135deg,#e8c99b,#bd8950)" },
+    { name:"МДФ", spec:"3 / 4 / 6 мм", bg:"linear-gradient(135deg,#d6b995,#a77c54)" },
+    { name:"Акрил", spec:"3 / 5 мм", bg:"linear-gradient(135deg,#f8fbfb,#a8d9df)" },
+    { name:"Картон", spec:"1,5 / 2 / 2,5 мм", bg:"linear-gradient(135deg,#e2d2b8,#c1a77e)" }
+];
+
+const TOP = [
+    { img:"1.jpg", title:"Деревянные изделия", text:"Индивидуальное изготовление по вашему макету." },
+    { img:"2.png", title:"Ключницы", text:"Практичный подарок с индивидуальной гравировкой." },
+    { img:"4.jpg", title:"Адресные таблички", text:"Размер, форма и оформление под конкретный дом." }
+];
+
+const PRODUCTS = [
+    { img:"1.jpg", cat:"gifts", title:"Деревянное изделие", text:"Изготовление по индивидуальному макету.", price:"от 100 ₽" },
+    { img:"2.png", cat:"gifts", title:"Ключница", text:"Деревянная ключница с аккуратной обработкой.", price:"500 ₽" },
+    { img:"3.jpg", cat:"gifts", title:"Ключница", text:"Простой вариант для подарка.", price:"500 ₽" },
+    { img:"4.jpg", cat:"signs", title:"Адресная табличка", text:"Изготовление таблички по вашим размерам.", price:"от 700 ₽" },
+    { img:"5.jpg", cat:"decor", title:"Декоративное изделие", text:"Пример работы мастерской.", price:"по запросу" },
+    { img:"6.jpg", cat:"decor", title:"Интерьерный декор", text:"Лазерная резка и гравировка.", price:"по запросу" },
+    { img:"7.jpg", cat:"corp", title:"Корпоративное изделие", text:"Подходит для небольших серий.", price:"по запросу" },
+    { img:"8.jpg", cat:"decor", title:"Декоративная работа", text:"Индивидуальный дизайн.", price:"по запросу" },
+    { img:"9.jpg", cat:"gifts", title:"Подарочное изделие", text:"Персонализация под заказ.", price:"по запросу" },
+    { img:"10.jpg", cat:"decor", title:"Изделие из дерева", text:"Обработка на лазерном станке.", price:"по запросу" },
+    { img:"11.jpg", cat:"corp", title:"Серийный заказ", text:"Изготовление партии изделий.", price:"по запросу" },
+    { img:"12.jpg", cat:"decor", title:"Авторский декор", text:"Работа по индивидуальному проекту.", price:"по запросу" },
+    { img:"13.jpg", cat:"gifts", title:"Сувенир", text:"Изготовление на заказ.", price:"по запросу" },
+    { img:"14.jpg", cat:"signs", title:"Табличка", text:"Разные размеры и варианты оформления.", price:"по запросу" },
+    { img:"15.jpg", cat:"decor", title:"Работа мастерской", text:"Пример готового изделия.", price:"по запросу" }
+];
+
+const REVIEWS = [
+    { name:"Марина", role:"табличка на дверь", text:"Сделали аккуратно и быстро. Помогли подобрать вариант оформления." },
+    { name:"Игорь", role:"корпоративный заказ", text:"Нужна была небольшая партия сувениров. Всё подготовили и изготовили в срок." },
+    { name:"Светлана", role:"подарочное изделие", text:"Получилось очень аккуратно. Особенно понравилась гравировка." },
+    { name:"Дмитрий", role:"адресная табличка", text:"Прислал размеры, согласовали макет и быстро получили готовую работу." }
+];
+
+const FAQ = [
+    { q:"Можно сделать по моему макету?", a:"Да. Можно прислать готовый макет или обратиться за помощью в его подготовке." },
+    { q:"Какой минимальный заказ?", a:"Можно заказать даже одно изделие." },
+    { q:"Сколько занимает изготовление?", a:"Обычно от 2 до 5 рабочих дней. Точный срок зависит от изделия и загрузки." },
+    { q:"Какие материалы доступны?", a:"Фанера, МДФ, акрил, картон и другие материалы, подходящие для лазерной обработки." },
+    { q:"Можно заказать большую партию?", a:"Да. Изготавливаем как единичные изделия, так и серии." },
+    { q:"Можно забрать заказ самостоятельно?", a:"Да, если мастерская работает по указанному адресу. Способ получения согласовывается при оформлении заказа." }
+];
+
+document.getElementById("servicesGrid").innerHTML =
+SERVICES.map(s => `
+    <article class="card service reveal">
+        <div class="service-icon">
+            <svg class="icon"><use href="#${s.icon}"/></svg>
+        </div>
+        <h3>${s.title}</h3>
+        <p>${s.text}</p>
+    </article>
+`).join("");
+
+document.getElementById("materialGrid").innerHTML =
+MATERIALS.map(m => `
+    <article class="card material reveal">
+        <div class="material-swatch" style="background:${m.bg}"></div>
+        <h4>${m.name}</h4>
+        <p>${m.spec}</p>
+    </article>
+`).join("");
+
+document.getElementById("topGrid").innerHTML =
+TOP.map((item,index) => `
+    <article class="card top-card reveal">
+        <div class="top-photo">
+            <img src="images/${item.img}" alt="${item.title}" loading="lazy">
+        </div>
+        <div class="top-content">
+            <span class="rank">ТОП ${index+1}</span>
+            <h3>${item.title}</h3>
+            <p>${item.text}</p>
+        </div>
+    </article>
+`).join("");
+
+const FILTERS = [
+    ["all","Все"],
+    ["gifts","Подарки"],
+    ["signs","Таблички"],
+    ["decor","Декор"],
+    ["corp","Корпоративные"]
+];
+
+const filters = document.getElementById("filters");
+
+filters.innerHTML =
+FILTERS.map((f,i) => `
+    <button class="filter ${i===0?"active":""}" data-filter="${f[0]}">
+        ${f[1]}
+    </button>
+`).join("");
+
+function renderProducts(category){
+    category = category || "all";
+    document.getElementById("products").innerHTML =
+    PRODUCTS.map(p => {
+        if(category !== "all" && p.cat !== category){
+            return "";
+        }
+        return `
+            <article class="card product reveal">
+                <div class="product-photo">
+                    <img src="images/${p.img}" alt="${p.title}" loading="lazy">
+                </div>
+                <div class="product-body">
+                    <h3>${p.title}</h3>
+                    <p>${p.text}</p>
+                    <div class="product-bottom">
+                        <span class="price">${p.price}</span>
+                        <button class="order" data-product="${p.title}">Заказать</button>
+                    </div>
+                </div>
+            </article>
+        `;
+    }).join("");
+    observeReveals();
+}
+
+renderProducts();
+
+filters.addEventListener("click", function(e){
+    var btn = e.target.closest(".filter");
+    if(!btn) return;
+    filters.querySelectorAll(".filter").forEach(function(x){ x.classList.remove("active"); });
+    btn.classList.add("active");
+    renderProducts(btn.dataset.filter);
+});
+
+const GALLERY = ["5.jpg","6.jpg","7.jpg","8.jpg","9.jpg","10.jpg","11.jpg","12.jpg"];
+
+document.getElementById("gallery").innerHTML =
+GALLERY.map((img,i) => `
+    <button data-image="images/${img}" aria-label="Открыть фотографию">
+        <img src="images/${img}" alt="Работа ${i+1}" loading="lazy">
+    </button>
+`).join("");
+
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = document.getElementById("lightboxImage");
+
+document.getElementById("gallery").addEventListener("click", function(e){
+    var button = e.target.closest("button");
+    if(!button) return;
+    lightboxImage.src = button.dataset.image;
+    lightbox.classList.add("open");
+});
+
+document.getElementById("lightboxClose").addEventListener("click", function(){
+    lightbox.classList.remove("open");
+});
+
+lightbox.addEventListener("click", function(e){
+    if(e.target === lightbox){
+        lightbox.classList.remove("open");
+    }
+});
+
+document.addEventListener("keydown", function(e){
+    if(e.key === "Escape"){
+        lightbox.classList.remove("open");
+    }
+});
+
+document.getElementById("products").addEventListener("click", function(e){
+    var button = e.target.closest(".order");
+    if(!button) return;
+    var message = document.querySelector('[name="message"]');
+    message.value = "Хочу заказать: " + button.dataset.product;
+    document.getElementById("contact").scrollIntoView({behavior:"smooth"});
+});
+
+const calcMaterial = document.getElementById("calcMaterial");
+const calcQty = document.getElementById("calcQty");
+const calcW = document.getElementById("calcW");
+const calcH = document.getElementById("calcH");
+const calcEngrave = document.getElementById("calcEngrave");
+const calcResult = document.getElementById("calcResult");
+
+function calculate(){
+    var rate = Number(calcMaterial.value);
+    var qty = Math.max(1, Number(calcQty.value) || 1);
+    var w = Math.max(1, Number(calcW.value) || 1);
+    var h = Math.max(1, Number(calcH.value) || 1);
+    var area = w * h;
+
+    var price = area * rate;
+    if(calcEngrave.checked){
+        price += 150 + area * .6;
+    }
+    price = Math.max(price, 250);
+
+    var total = price * qty;
+    var low = Math.round(total * .9 / 10) * 10;
+    var high = Math.round(total * 1.15 / 10) * 10;
+
+    calcResult.textContent = low.toLocaleString("ru-RU") + "–" + high.toLocaleString("ru-RU") + " ₽";
+}
+
+[calcMaterial, calcQty, calcW, calcH, calcEngrave].forEach(function(el){
+    el.addEventListener("input", calculate);
+});
+
+calculate();
+
+document.getElementById("calcOrder").addEventListener("click", function(){
+    document.querySelector('[name="message"]').value =
+        "Расчёт: " +
+        calcMaterial.options[calcMaterial.selectedIndex].text +
+        ", размер " + calcW.value + "×" + calcH.value +
+        " см, количество " + calcQty.value + " шт." +
+        (calcEngrave.checked ? " С гравировкой." : "") +
+        " Ориентировочная стоимость: " + calcResult.textContent;
+});
+
+var reviewIndex = 0;
+
+function renderReview(){
+    var review = REVIEWS[reviewIndex];
+    document.getElementById("reviewText").textContent = "«" + review.text + "»";
+    document.getElementById("reviewName").textContent = review.name;
+    document.getElementById("reviewRole").textContent = review.role;
+}
+
+document.getElementById("prevReview").addEventListener("click", function(){
+    reviewIndex = (reviewIndex - 1 + REVIEWS.length) % REVIEWS.length;
+    renderReview();
+});
+
+document.getElementById("nextReview").addEventListener("click", function(){
+    reviewIndex = (reviewIndex + 1) % REVIEWS.length;
+    renderReview();
+});
+
+renderReview();
+
+const faqList = document.getElementById("faqList");
+
+faqList.innerHTML =
+FAQ.map(item => `
+    <div class="faq-item reveal">
+        <button class="faq-question">
+            <span>${item.q}</span>
+            <span>+</span>
+        </button>
+        <div class="faq-answer">
+            <p>${item.a}</p>
+        </div>
+    </div>
+`).join("");
+
+faqList.addEventListener("click", function(e){
+    var button = e.target.closest(".faq-question");
+    if(!button) return;
+
+    var item = button.parentElement;
+    var answer = item.querySelector(".faq-answer");
+    var open = item.classList.contains("open");
+
+    faqList.querySelectorAll(".faq-item.open").forEach(function(other){
+        other.classList.remove("open");
+        other.querySelector(".faq-answer").style.maxHeight = null;
+    });
+
+    if(!open){
+        item.classList.add("open");
+        answer.style.maxHeight = answer.scrollHeight + "px";
+    }
+});
+
+/* =========================
+   ОТПРАВКА ЗАЯВКИ В TELEGRAM
+========================= */
+
+const contactForm = document.getElementById("contactForm");
+
+contactForm.addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    if(!contactForm.checkValidity()){
+        contactForm.reportValidity();
+        return;
+    }
+
+    const BOT_TOKEN = "8754903119:AAERkvCcEVKKphC598uUBaxz7rqW4DLOX0M";
+    const CHAT_ID = "8819559045";
+
+    const fd = new FormData(contactForm);
+    const text =
+        "🆕 Заявка с сайта Мастерская Крафт\n\n" +
+        "👤 Имя: " + (fd.get("name") || "—") + "\n" +
+        "📞 Контакт: " + (fd.get("contact") || "—") + "\n" +
+        "📦 Тип: " + (fd.get("type") || "—") + "\n" +
+        "📝 Задача: " + (fd.get("message") || "—");
+
+    const btn = contactForm.querySelector('button[type="submit"]');
+    const originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = "Отправляем…";
+
+    try{
+        const res = await fetch("https://api.telegram.org/bot" + BOT_TOKEN + "/sendMessage", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: text
+            })
+        });
+
+        const data = await res.json();
+
+        if(data.ok){
+            document.getElementById("success").classList.add("show");
+            contactForm.reset();
+            setTimeout(function(){
+                document.getElementById("success").classList.remove("show");
+            }, 5000);
+        }else{
+            alert("Ошибка отправки: " + (data.description || "неизвестная ошибка"));
+        }
+    }catch(err){
+        alert("Не удалось отправить заявку. Проверьте интернет и попробуйте снова.");
+    }finally{
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+    }
+});
+
+const header = document.getElementById("header");
+
+window.addEventListener("scroll", function(){
+    header.classList.toggle("scrolled", window.scrollY > 20);
+}, {passive:true});
+
+const menuButton = document.getElementById("menuButton");
+const mobilePanel = document.getElementById("mobilePanel");
+const mobileBackdrop = document.getElementById("mobileBackdrop");
+
+function setMenu(open){
+    mobilePanel.classList.toggle("open", open);
+    mobileBackdrop.classList.toggle("open", open);
+    document.body.style.overflow = open ? "hidden" : "";
+}
+
+menuButton.addEventListener("click", function(){
+    setMenu(!mobilePanel.classList.contains("open"));
+});
+
+mobileBackdrop.addEventListener("click", function(){ setMenu(false); });
+
+mobilePanel.querySelectorAll("a").forEach(function(link){
+    link.addEventListener("click", function(){ setMenu(false); });
+});
+
+function observeReveals(){
+    var elements = document.querySelectorAll(".reveal:not(.visible)");
+
+    if(!("IntersectionObserver" in window)){
+        elements.forEach(function(el){ el.classList.add("visible"); });
+        return;
+    }
+
+    var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+            if(entry.isIntersecting){
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold:.1,
+        rootMargin:"0px 0px -30px 0px"
+    });
+
+    elements.forEach(function(el){ observer.observe(el); });
+}
+
+observeReveals();
+
+const counters = document.querySelectorAll("[data-count]");
+
+const counterObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        var element = entry.target;
+        var target = Number(element.dataset.count);
+        var current = 0;
+
+        var timer = setInterval(function(){
+            current += Math.ceil(target / 35);
+            if(current >= target){
+                current = target;
+                clearInterval(timer);
+            }
+            element.textContent = current + "+";
+        }, 35);
+
+        counterObserver.unobserve(element);
+    });
+}, {threshold:.5});
+
+counters.forEach(function(counter){ counterObserver.observe(counter); });
+
+const topButton = document.getElementById("toTop");
+
+window.addEventListener("scroll", function(){
+    topButton.classList.toggle("show", window.scrollY > 600);
+}, {passive:true});
+
+topButton.addEventListener("click", function(){
+    window.scrollTo({ top:0, behavior:"smooth" });
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
